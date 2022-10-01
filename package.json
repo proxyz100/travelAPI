@@ -1,0 +1,27 @@
+{
+  "name": "travelapi",
+  "version": "1.0.0",
+  "description": "¡Hola! Les presentamos esta nueva API **Travel around the globe**, esta API muestra una serie de destinos, categorias, tipos de usuario y lista de favoritos.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node ./app.js",
+    "dev": "nodemon ./app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/proxyz100/travelAPI.git"
+  },
+  "keywords": [],
+  "author": "Francisco Solis, Marcela Contreras, Alma Lovera, Maribel Melendez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/proxyz100/travelAPI/issues"
+  },
+  "homepage": "https://github.com/proxyz100/travelAPI#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.20",
+    "sequelize": "^6.23.2"
+  }
+}
