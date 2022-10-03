@@ -1,8 +1,10 @@
 const Favorite = require("../models/favorites.model");
-
+const User = require('../models/users.model')
+const Destination = require('../models/destinations.model')
 
 async function getFavorites(req, res) {
-  const favorites = await Favorite.findAll();
+  const id = req.params.id;
+  const favorites = await Favorite.findAll(); // maybe change this statement and use include
   res.status(200).json(favorites);
 }
 
