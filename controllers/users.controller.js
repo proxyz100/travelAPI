@@ -1,6 +1,6 @@
-const User = require("../models/users");
+const User = require("../models/users.model");
 
-// TO DO: Implement authorization 
+// TO DO: Implement authorization
 async function signUp(req, res) {
   const body = req.body;
 
@@ -43,7 +43,7 @@ async function logIn(req, res) {
       user: user.username,
       email: user.email,
       token: User.generateJWT(user),
-    }); 
+    });
   } else {
     return res.status(400).json({ mensaje: "Incorrect password" });
   }
