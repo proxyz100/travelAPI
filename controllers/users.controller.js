@@ -1,6 +1,6 @@
 const User = require("../models/users");
 
-// TO DO: Implement authorization and authentication
+// TO DO: Implement authorization 
 async function signUp(req, res) {
   const body = req.body;
 
@@ -26,8 +26,28 @@ async function signUp(req, res) {
   }
 }
 
-// TO DO: Implement method
-function logIn(req, res) {}
+async function logIn(req, res) {
+  const body = req.body;
+  const user = await User.findOne({ where: { email: body["email"] } });
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+  if (
+    User.validatePassword(
+      body["password"],
+      user.password_salt,
+      user.password_hash
+    )
+  ) {
+    return res.status(200).json({
+      user: user.username,
+      email: user.email,
+      token: User.generateJWT(user),
+    }); 
+  } else {
+    return res.status(400).json({ mensaje: "Incorrect password" });
+  }
+}
 
 // CRUD endpoints
 async function getUsers(req, res) {
@@ -42,9 +62,7 @@ async function getUser(req, res) {
 }
 
 async function createUser(req, res) {
-  const body = req.body;
-  const user = await User.create(body);
-  res.status(201).json(user);
+  signUp(req, res);
 }
 
 async function updateUser(req, res) {
