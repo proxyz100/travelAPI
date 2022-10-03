@@ -1,4 +1,4 @@
-const {Sequelize} = require ('sequelize');
-const sequelize = new Sequelize ('sqlite://db.sqlite');
+const { Sequelize } = require('sequelize');
+const sequelize = new Sequelize('sqlite://db.sqlite');
 
-module.exports= sequelize; 
+module.exports = sequelize;

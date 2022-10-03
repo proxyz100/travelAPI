@@ -1,4 +1,4 @@
-const User = require("../models/users");
+const User = require("../models/users.model");
 
 // TO DO: Implement authorization and authentication
 async function signUp(req, res) {
@@ -20,7 +20,7 @@ async function signUp(req, res) {
 }
 
 // TO DO: Implement method
-function logIn(req, res) {}
+function logIn(req, res) { }
 
 // CRUD endpoints
 async function getUsers(req, res) {

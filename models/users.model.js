@@ -1,8 +1,8 @@
 const sequelize = require('../config/db');
 const { DataTypes } = require('sequelize');
-const Type = require('./types');
+const Type = require('./types.model');
 
-const User = sequelize.define ('User', {
+const User = sequelize.define('User', {
     name: {
         type: DataTypes.CHAR(64),
         allowNull: false

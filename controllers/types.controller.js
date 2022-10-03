@@ -1,4 +1,4 @@
-const Type = require("../models/types");
+const Type = require("../models/types.model");
 
 // CRUD endpoints
 async function getTypes(req, res) {
