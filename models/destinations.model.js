@@ -1,22 +1,22 @@
-const { Sequelize, Datatypes } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
 const Destination = sequelize.define('Destination', {
     name: {
-        type: Datatypes.CHAR(64),
+        type: DataTypes.CHAR(64),
         allowNull: false,
         unique: true
     },
     description: {
-        type: Datatypes.TEXT,
+        type: DataTypes.TEXT,
         allowNull: false,
     },
     cost: {
-        type: Datatypes.DOUBLE,
+        type: DataTypes.DOUBLE,
         allowNull: false,
     },
     image: {
-        type: Datatypes.TEXT,
+        type: DataTypes.TEXT,
         allowNull: false,
         unique: true,
         validate: {

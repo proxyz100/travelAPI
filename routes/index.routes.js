@@ -1,7 +1,7 @@
 const router = require('express').Router();
 // const users = require('./users.routes');
 // const categories = require('./categories.routes');
-// const destinations = require('./destinations.routes');
+const destinations = require('./destinations.routes');
 // const favorites = require('./favorites.routes');
 // const types = require('./types.routes');
 
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 // Use the routes
 // router.use('/users', users);
 // router.use('/categories', categories);
-// router.use('/destinations', destinations);
+router.use('/destinations', destinations);
 // router.use('/favorites', favorites);
 // router.use('/types', types);
 
