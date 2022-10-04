@@ -1,6 +1,6 @@
 const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
-const Type = require("./types");
+const Type = require("./types.model");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const secret = require("../config/secret");
