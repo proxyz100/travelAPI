@@ -12,7 +12,7 @@ const Category = sequelize.define('Category', {
         allowNull: false,
         validate: {
             isUrl: true
-        }
+        },
         unique: true
     },
     description: {
