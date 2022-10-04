@@ -19,3 +19,6 @@ async function deleteFav(req, res) {
   const favoriteDeleted = Favorite.destroy({ where: { id } });
   res.status(200).json(favoriteDeleted);
 }
+
+
+module.exports = { getFavorites, createFavorite, deleteFav }

@@ -10,8 +10,8 @@ User.hasMany(Favorite);
 Favorite.belongsTo(User);
 
 // One to many (Favorite and Destiny)
-Destiny.hasMany(Favorite);
-Favorite.belongsTo(Destiny);
+Destination.hasMany(Favorite);
+Favorite.belongsTo(Destination);
 
 // The Super Many-to-Many relationship ❓
 
