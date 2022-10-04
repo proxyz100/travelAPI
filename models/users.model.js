@@ -1,6 +1,5 @@
 const sequelize = require("../config/db");
 const { DataTypes } = require("sequelize");
-const Type = require("./types.model");
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const secret = require("../config/secret");
@@ -34,9 +33,6 @@ const User = sequelize.define("User", {
     allowNull: true,
   },
 });
-
-User.hasOne(Type);
-Type.belongsTo(User);
 
 User.createPassword = function (plainText) {
   const salt = crypto.randomBytes(16).toString("hex");
