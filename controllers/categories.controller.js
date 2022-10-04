@@ -20,14 +20,14 @@ async function getCategories(req, res) {
 async function updateCategory(req, res) {
     const id = req.params.id;
     const category = req.body;
-    await Category.update(category, { where: (id) });
+    await Category.update(category, { where: {id}});
     const category_updated = await Category.findByPk(id);
     res.status(200).json(category_updated);
 }
 async function deleteCategory(req, res) {
     const id = req.params.id;
     const deleted = Category.destroy(
-        { where: (id) }
+        { where: {id} }
     );
     res.status(200).json(deleted);
 }
