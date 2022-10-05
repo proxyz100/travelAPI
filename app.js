@@ -1,4 +1,5 @@
 const express = require('express');
+const sequelize = require('./config/db');
 const routes = require('./routes/index.routes');
 const sequelize = require('./config/db');
 const app = express();
@@ -11,6 +12,14 @@ try {
     console.log('Connected to DB');
 } catch (error) {
     console.log('Unable to connect to DB: ', error);
+}
+
+try {
+    sequelize.authenticate();
+    sequelize.sync();
+    console.log('Connected to DB');
+} catch (error) {
+    console.log('Unable to connect to DB:', error);
 }
 
 const PORT = 3000;
