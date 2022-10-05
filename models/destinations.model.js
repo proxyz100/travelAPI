@@ -3,7 +3,7 @@ const sequelize = require('../config/db');
 
 const Destination = sequelize.define('Destination', {
     name: {
-        type: DataTypes.CHAR(64),
+        type: DataTypes.STRING(64),
         allowNull: false,
         unique: true
     },

@@ -5,7 +5,7 @@ const User = require('./users.model');
 
 const Type = sequelize.define('Type', {
     name: {
-        type: DataTypes.CHAR(64),
+        type: DataTypes.STRING(64),
         allowNull: false,
         unique: true,
     }
