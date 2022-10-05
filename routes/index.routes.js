@@ -1,5 +1,5 @@
 const router = require('express').Router();
-// const users = require('./users.routes');
+const users = require('./users.routes');
 const categories = require('./categories.routes');
 // const destinations = require('./destinations.routes');
 // const categories = require('./categories.routes');
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 // Use the routes
-// router.use('/users', users);
+router.use('/users', users);
 router.use('/categories', categories);
 // router.use('/destinations', destinations);
 // router.use('/categories', categories);

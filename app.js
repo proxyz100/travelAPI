@@ -14,7 +14,7 @@ try {
     console.log('Unable to connect to DB: ', error);
 }
 
-const PORT = 3000;
+const PORT = 4000;
 app.listen(PORT, () => {
     console.log("listening on port " + PORT);
 });
