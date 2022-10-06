@@ -29,6 +29,7 @@ async function signUp(req, res) {
 async function logIn(req, res) {
   const body = req.body;
   const user = await User.findOne({ where: { email: body["email"] } });
+
   if (!user) {
     return res.status(404).json({ error: "User not found" });
   }
@@ -40,7 +41,7 @@ async function logIn(req, res) {
     )
   ) {
     return res.status(200).json({
-      user: user.username,
+      username: user.name + user.surname,
       email: user.email,
       token: User.generateJWT(user),
     });

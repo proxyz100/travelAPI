@@ -1,5 +1,5 @@
 const router = require('express').Router();
-
+const auth = require('../config/auth');
 const {
   getFavorites,
   createFavorite,
@@ -10,7 +10,7 @@ const {
 router.get('/', getFavorites);
 router.get('/users/:id', getFavoritesDestinationsByUser);
 router.get('/destinations/:id', getFavoritesOfUserByDestination);
-router.post('/', createFavorite);
+router.post('/', auth.isPremium, createFavorite);
 router.delete('/:id', deleteFavorite);
 
 module.exports = router;

@@ -53,10 +53,10 @@ User.validatePassword = function (password, user_salt, user_hash) {
 User.generateJWT = function (user) {
   const today = new Date();
   const exp = new Date(today);
-  exp.setDate(today.getDate() + 7);
+  exp.setDate(today.getDate() + 60);
 
   return jwt.sign({
-    user: user.email,
+    user: user.TypeId,
     exp: parseInt(exp.getTime() / 1000)
   }, secret);
 }
