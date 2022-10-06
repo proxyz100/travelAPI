@@ -31,7 +31,7 @@ async function deleteDestination(req, res) {
     const deleted = Destination.destroy(
         { where: { id } }
     );
-    req.status(200).json(deleted);
+    res.status(200).json(deleted);
 }
 
 module.exports = {
