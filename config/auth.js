@@ -37,7 +37,7 @@ const auth = {
   isPremium: (req, res, next) => {
     if (!req.auth) return res.sendStatus(401);
     console.log(req.auth);
-    if (req.auth.user !== 2) return res.sendStatus(403); //just the admin (forbidden)
+    if (req.auth.user !== 2 && req.auth.user !== 1) return res.sendStatus(403); //just the admin (forbidden)
     next();
   },
 }

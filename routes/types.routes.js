@@ -1,14 +1,15 @@
 const router = require('express').Router();
-const { 
-    getTypes, 
-    createType, 
-    updateType, 
-    deleteType } 
+const auth = require('../config/auth');
+const {
+    getTypes,
+    createType,
+    updateType,
+    deleteType }
     = require('../controllers/types.controller')
 
-router.get('/', getTypes); 
-router.post('/', createType);
-router.patch('/:id', updateType);
-router.delete('/:id', deleteType);
+router.get('/', auth.isAdmin, getTypes);
+router.post('/', auth.isAdmin, createType);
+router.patch('/:id', auth.isAdmin, updateType);
+router.delete('/:id', auth.isAdmin, deleteType);
 
 module.exports = router;

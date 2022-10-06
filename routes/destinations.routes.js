@@ -1,17 +1,17 @@
 const router = require('express').Router();
-
-const{
+const auth = require('../config/auth');
+const {
     createDestination,
-    getDestination, 
-    getDestinations, 
+    getDestination,
+    getDestinations,
     updateDestination,
     deleteDestination,
 } = require('../controllers/destinations.controller')
 
-router.post('/', createDestination); 
-router.get('/:id', getDestination); 
+router.post('/', auth.isAdmin, createDestination);
+router.get('/:id', getDestination);
 router.get('/', getDestinations);
-router.patch('/:id', updateDestination);
-router.delete('/:id', deleteDestination); 
+router.patch('/:id', auth.isAdmin, updateDestination);
+router.delete('/:id', auth.isAdmin, deleteDestination);
 
-module.exports = router; 
+module.exports = router;
