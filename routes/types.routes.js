@@ -8,7 +8,7 @@ const {
     = require('../controllers/types.controller')
 
 router.get('/', auth.isAdmin, getTypes);
-router.post('/', auth.isAdmin, createType);
+router.post('/', createType);
 router.patch('/:id', auth.isAdmin, updateType);
 router.delete('/:id', auth.isAdmin, deleteType);
 
