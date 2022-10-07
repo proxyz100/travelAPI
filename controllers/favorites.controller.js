@@ -3,16 +3,18 @@ const User = require('../models/users.model')
 const Destination = require('../models/destinations.model')
 
 async function getFavorites(req, res) {
+  const limit = req.query.limit;
   const favoritesResult = await Favorite.findAll({ include: [User, Destination] }); // maybe change this statement and use include
   // Maybe Build the URL
-  const favorites = favoritesResult.map(favorite => {
-    const userUrl = `http://localhost:4000/users/${favorite.User.id}`;
-    const destinationUrl = `http://localhost:4000/destinations/${favorite.Destination.id}`;
-    const favoriteCopy = { ...favorite.dataValues }
-    favoriteCopy.User = userUrl;
-    favoriteCopy.Destination = destinationUrl;
-    return favoriteCopy;
-  });
+  const favorites = favoritesResult.slice(0, limit ?? favoritesResult.length)
+    .map(favorite => {
+      const userUrl = `http://localhost:4000/users/${favorite.User.id}`;
+      const destinationUrl = `http://localhost:4000/destinations/${favorite.Destination.id}`;
+      const favoriteCopy = { ...favorite.dataValues }
+      favoriteCopy.User = userUrl;
+      favoriteCopy.Destination = destinationUrl;
+      return favoriteCopy;
+    });
   res.status(200).json(favorites);
 }
 
@@ -24,8 +26,9 @@ async function createFavorite(req, res) {
 
 async function getFavoritesDestinationsByUser(req, res) {
   const idUser = req.params.id;
+  const limit = req.query.limit;
   const result = await User.findByPk(idUser, { include: Destination }); // maybe change this statement and use include
-  const favoritesUser = result.Destinations;
+  const favoritesUser = result.Destinations.slice(0, limit ?? result.Destinations.length);
   res.status(200).json(favoritesUser);
 }
 
