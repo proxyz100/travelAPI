@@ -1,15 +1,45 @@
-const router = require('express').Router();
-const auth = require('../config/auth');
-const passport = require('../config/passport');
+/**
+ * @swagger
+ * definitions:
+ *   User:
+ *      type: object
+ *      required:
+ *          - name
+ *          - surname
+ *          - email
+ *          - password
+ *          - TypeID
+ *      properties:
+ *       name:
+ *          type: string
+ *       surname:
+ *          type: string
+ *       email:
+ *          type: string
+ *       password:
+ *          type: string
+ *       TypeId:
+ *          type: integer
+ *      example:  
+ *          "name": "Dom"
+ *          "surname": "Dimadon"
+ *          "email": "domdimadon@hotmail.com"
+ *          "password": "password2"
+ *          "TypeId": 1
+ * */
+
+const router = require("express").Router();
+const auth = require("../config/auth");
+const passport = require("../config/passport");
 const {
-    signUp,
-    logIn,
-    getUsers,
-    getUser,
-    createUser,
-    updateUser,
-    deleteUser }
-    = require('../controllers/users.controller')
+  signUp,
+  logIn,
+  getUsers,
+  getUser,
+  createUser,
+  updateUser,
+  deleteUser,
+} = require("../controllers/users.controller");
 
 /**
  * @swagger
@@ -20,177 +50,152 @@ const {
 
 /**
  * @swagger
- * /users/signUp:
- *   post:
- *     summary: Sign up 
- *     tags: [Users]
- *     parameters:
- *       -  in: body
- *          name: name
- *          description: First name of user
+ *  /users/signUp:
+ *    post:
+ *      summary: Sign up with valid email
+ *      tags: [Users]
+ *      parameters:
+ *        - in: body
+ *          name: User 
+ *          description: User object
  *          schema:
- *              type: string
- *              required: true
- *              example: "Don"
- *       -  in: body
- *          name: surname
- *          description: Last name of user
- *          schema:
- *              type: string
- *              required: true
- *              example: "Dimadon"
- *       -  in: body
- *          name: email
- *          description: Email account
- *          schema:
- *              type: email
- *              required: true
- *              example: "dondimadon@hotmail.com"
- *       -  in: body
- *          name: password
- *          description: A super strong password
- *          schema:
- *              type: string
- *              required: true
- *              example: "password07"
- *       -  in: body
- *          name: TypeId
- *          description: ID of type of user (1-Admin, 2-Premium, 3-Basic)
- *          schema:
- *              type: integer
- *              required: true  
- * 
- *     responses:
- *       201:
- *         description: User successfully created
+ *            type: object
+ *            required: true
+ *            $ref: '#/definitions/User'
+ *      responses:
+ *        201:
+ *          description: User succesfully created
+ *        400:
+ *          description: Bad request (i.e. Email must be unique, property cannot be null)
  */
-router.post('/signUp', signUp);
+router.post("/signUp", signUp);
 
 /**
  * @swagger
- * /users/logIn:
- *   post:
- *     summary: Log in 
- *     description: Log in with previously created user
- *     tags: [Users]
- *     parameters:
- *       -  in: body
- *          name: email
- *          description: Registered email 
- *          schema:
- *              type: email
- *              required: true
- *              example: "dondimadon@hotmail.com"
- *       -  in: body
- *          name: password
- *          description: User's password
- *          schema:
- *              type: string
- *              required: true
- *              example: "password07" 
- * 
- *     responses:
- *       200:
- *         description: Log in with valid token
+ *  /users/logIn:
+ *    post:
+ *      summary: Log in
+ *      description: Log in with valid email and password 
+ *      tags: [Users]
+ *      parameters:
+ *        - in: body
+ *          name: User object
+ *          description: User email and password
+ *          schema: 
+ *            type: object
+ *            required: true
+ *            example: '{"email": "domdimadon@hotmail.com", "password": "password2"}'
+ *      responses:
+ *        200: 
+ *          description: User is logged and new token is generated.
+ *        400:
+ *          description: Bad request (i.e. missing required field, wrong email or password)
  */
-router.post('/logIn', logIn);
+router.post("/logIn", logIn);
 
 /**
  * @swagger
- * /users/:
- *   get:
- *     summary: Get all users
- *     tags: [Users]
- *     security: 
+ *  /users/:
+ *    get:
+ *      summary: Get all users
+ *      tags: [Users]
+ *      security:
  *        - BearerAuth: []
- *     responses:
- *       200:
- *         description: A list of all registered users
- *       401:
- *         description: Unauthorized the user is not admin
+ *      responses:
+ *        200:
+ *          description: A list of all registered users
+ *        401:
+ *          description: Unauthorized the user is not admin
  */
-router.get('/', [passport.authenticate('bearer', { session: false, assignProperty: 'user' }), auth.isAdmin], getUsers);
+router.get(
+  "/",
+  [
+    passport.authenticate("bearer", { session: false, assignProperty: "user" }),
+    auth.isAdmin,
+  ],
+  getUsers
+);
 
 /**
  * @swagger
- * /users/{id}:
- *   get:
- *     summary: Get users by ID
- *     tags: [Users]
- *     security: 
+ *  /users/{id}:
+ *    get:
+ *      summary: Get user by ID
+ *      tags: [Users]
+ *      security:
  *        - BearerAuth: []
- *     parameters:
- *       -  in: path
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          description: Unique id of the user
+ *          schema:
+ *            type: integer
+ *            required: true
+ *            example: 1
+ *      responses:
+ *        200:
+ *          description: The user registered with the indicated ID.
+ *        401:
+ *          description: Unauthorized the user is not admin
+ */
+router.get("/:id", auth.isAdmin, getUser);
+
+// Same as Sign Up
+router.post("/", auth.isAdmin, createUser);
+
+/**
+ * @swagger
+ *  /users/{id}:
+ *    patch:
+ *      summary: Update one or many fields of a User by ID
+ *      tags: [Users]
+ *      security:
+ *        - BearerAuth: []
+ *      parameters:
+ *        - in: path
  *          name: id
  *          description: Unique id of the user
  *          schema:
  *              type: integer
  *              required: true
- *              example: 1      
- *     responses:
- *       200:
- *         description: The user registered with the indicated ID.
- *       401:
- *         description: Unauthorized the user is not admin
- */
-router.get('/:id', auth.isAdmin, getUser);
-
-// Not sure if we should add documentation
-router.post('/', auth.isAdmin, createUser);
-
-/**
- * @swagger
- * /users/{id}:
- *   patch:
- *     summary: Update one or many fields of a User by ID
- *     tags: [Users]
- *     security: 
- *        - BearerAuth: [] 
- *     parameters:
- *       -  in: path
- *          name: id
- *          description: Unique id of the user
- *          schema:
- *              type: integer
- *              required: true
- *              example: 1 
- *       -  in: body
+ *              example: 1
+ *        - in: body
  *          name: property
  *          description: property you want to update with its new value
  *          schema:
  *              type: string
  *              required: true
- *      
- *     responses:
- *       200:
- *         description: The user has been deleted.
- *       401:
- *         description: Unauthorized the user is not admin.
+ *              example: '{"name": "Anna"}'
+ *      responses:
+ *        200:
+ *          description: The user has been succesfully updated.
+ *        401:
+ *          description: Unauthorized the user is not admin.
  */
-router.patch('/:id', auth.isAdmin, updateUser);
+router.patch("/:id", auth.isAdmin, updateUser);
 
 /**
  * @swagger
- * /users/{id}:
- *   delete:
- *     summary: Delete user by ID
- *     tags: [Users]
- *     security: 
- *        - BearerAuth: [] 
- *     parameters:
- *       -  in: path
+ *  /users/{id}:
+ *    delete:
+ *      summary: Delete user by ID
+ *      tags: [Users]
+ *      security:
+ *        - BearerAuth: []
+ *      parameters:
+ *        - in: path
  *          name: id
  *          description: Unique id of the user
  *          schema:
  *              type: integer
  *              required: true
- *              example: 1      
- *     responses:
- *       200:
- *         description: The user has been deleted.
- *       401:
- *         description: Unauthorized the user is not admin.
+ *              example: 1
+ *      responses:
+ *        200:
+ *          description: The user has been deleted.
+ *        401:
+ *          description: Unauthorized the user is not admin.
  */
-router.delete('/:id', auth.isAdmin, deleteUser);
+router.delete("/:id", auth.isAdmin, deleteUser);
 
 module.exports = router;
