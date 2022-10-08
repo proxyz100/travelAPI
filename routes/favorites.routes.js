@@ -7,8 +7,8 @@ const {
   getFavoritesDestinationsByUser,
   getFavoritesOfUserByDestination } = require('../controllers/favorites.controller');
 
-router.get('/', getFavorites);
-router.get('/users/:id', getFavoritesDestinationsByUser);
+router.get('/', auth.isPremium, getFavorites);
+router.get('/users/:id', auth.isPremium, getFavoritesDestinationsByUser);
 router.get('/destinations/:id', auth.isPremium, getFavoritesOfUserByDestination);
 router.post('/', createFavorite);
 router.delete('/:id', auth.isPremium, deleteFavorite);
