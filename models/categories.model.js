@@ -21,8 +21,8 @@ const Category = sequelize.define('Category', {
     },
 });
 
-//Relation many to many
-Category.belongsToMany(Destination, { through: 'Destinations_Categories' });
-Destination.belongsToMany(Category, { through: 'Destinations_Categories' });
+//Relation one to many
+Category.hasMany(Destination);
+Destination.belongsTo(Category);
 
 module.exports = Category;
