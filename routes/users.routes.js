@@ -19,21 +19,50 @@ const {
  */
 
 /**
- * @swagger 
+ * @swagger
  * /users/:
- *  get:
- *      summary: All users
- *      tags: [Users]
- *      description: Get a list of all users.
- *      produces: 
- *          - application/json
- *      responses:
- *       200:
- *         description: the list of all users
- *         content:
- *           application/json:
- *             schema:
- *               type: array
+ *   post:
+ *     summary: Sign up 
+ *     tags: [Users]
+ *     parameters:
+ *       -  in: body
+ *          name: name
+ *          description: First name of user
+ *          schema:
+ *              type: string
+ *              required: true
+ *              example: "Don"
+ *       -  in: body
+ *          name: surname
+ *          description: Last name of user
+ *          schema:
+ *              type: string
+ *              required: true
+ *              example: "Dimadon"
+ *       -  in: body
+ *          name: email
+ *          description: Email account
+ *          schema:
+ *              type: email
+ *              required: true
+ *              example: "dondimadon@hotmail.com"
+ *       -  in: body
+ *          name: password
+ *          description: Password
+ *          schema:
+ *              type: string
+ *              required: true
+ *              example: "superStrongPass07"
+ *       -  in: body
+ *          name: TypeId
+ *          description: ID of type of user (1-Admin, 2-Premium, 3-Basic)
+ *          schema:
+ *              type: integer
+ *              required: true  
+ * 
+ *     responses:
+ *       201:
+ *         description: User successfully created
  */
 router.post('/signUp', signUp);
 
