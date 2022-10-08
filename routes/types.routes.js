@@ -1,6 +1,7 @@
 /**
  * @swagger
- * definitions:
+ * components:
+ *  schemas:
  *   Type:
  *      type: object
  *      required:
@@ -15,6 +16,7 @@
  *          "id": 1
  *          "name": "Admin"
  * */
+
 const router = require('express').Router();
 const auth = require('../config/auth');
 const {
@@ -38,12 +40,12 @@ const {
  *          summary: Get all Types of users
  *          tags: [Types]
  *          security:
- *              - BearerAuth: []
+ *              - bearerAuth: []
  *          responses:
  *              200:
  *                  description: A list of all types is displayed.
  *                  schema:
- *                      $ref: '#/definitions/Type'
+ *                      $ref: '#/components/schemas/Type'
  *              401:
  *                  description: Unauthorized - the user is not admin
  */
@@ -67,7 +69,7 @@ router.get('/', auth.isAdmin, getTypes);
  *              201:
  *                  description: New Type has been created
  *                  schema:
- *                      $ref: '#/definitions/Type'
+ *                      $ref: '#/components/schemas/Type'
  *              400:
  *                  description: Bad Request (i.e. missing required field)
  *              401:
@@ -82,7 +84,7 @@ router.post('/', createType);
  *          summary: Update Type
  *          tags: [Types]
  *          security:
- *              - BearerAuth: []
+ *              - bearerAuth: []
  *          parameters:
  *              -   in: path
  *                  name: id
@@ -91,18 +93,19 @@ router.post('/', createType);
  *                      type: integer
  *                      required: true
  *                      example: '1'
- *              -   in: body
- *                  name: name
- *                  description: New name of Type
- *                  schema:
- *                      type: string
- *                      required: true
- *                      example: '{"name": "Admin"}'
+ *          requestBody:
+ *              description: Property you want to update with a new value
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          example: '{"name": "Admini"}'
  *          responses:
  *              201:
  *                  description: Type with new name
  *                  schema:
- *                      $ref: '#/definitions/Type'
+ *                      $ref: '#/components/schemas/Type'
  *              400:
  *                  description: Bad Request (i.e. missing required field)
  *              401:
@@ -117,7 +120,7 @@ router.patch('/:id', auth.isAdmin, updateType);
  *          summary: Delete Type by Id
  *          tags: [Types]
  *          security:
- *              - BearerAuth: []
+ *              - bearerAuth: []
  *          parameters:
  *              -   in: path
  *                  name: id

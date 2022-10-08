@@ -1,6 +1,7 @@
 /**
  * @swagger
- * definitions:
+ * components:
+ *  schemas:
  *   User:
  *      type: object
  *      required:
@@ -54,14 +55,13 @@ const {
  *    post:
  *      summary: Sign up with valid email
  *      tags: [Users]
- *      parameters:
- *        - in: body
- *          name: User 
- *          description: User object
- *          schema:
- *            type: object
- *            required: true
- *            $ref: '#/definitions/User'
+ *      requestBody:
+ *          description: user object
+ *          required: true
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/User'
  *      responses:
  *        201:
  *          description: User succesfully created
@@ -77,14 +77,14 @@ router.post("/signUp", signUp);
  *      summary: Log in
  *      description: Log in with valid email and password 
  *      tags: [Users]
- *      parameters:
- *        - in: body
- *          name: User object
- *          description: User email and password
- *          schema: 
- *            type: object
- *            required: true
- *            example: '{"email": "domdimadon@hotmail.com", "password": "password2"}'
+ *      requestBody:
+ *          description: user object
+ *          required: true
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                example: '{"email": "domdimadon@hotmail.com", "password": "password2"}'
  *      responses:
  *        200: 
  *          description: User is logged and new token is generated.
@@ -100,7 +100,7 @@ router.post("/logIn", logIn);
  *      summary: Get all users
  *      tags: [Users]
  *      security:
- *        - BearerAuth: []
+ *        - bearerAuth: [admin]
  *      responses:
  *        200:
  *          description: A list of all registered users
@@ -123,7 +123,7 @@ router.get(
  *      summary: Get user by ID
  *      tags: [Users]
  *      security:
- *        - BearerAuth: []
+ *        - bearerAuth: []
  *      parameters:
  *        - in: path
  *          name: id
@@ -150,7 +150,7 @@ router.post("/", auth.isAdmin, createUser);
  *      summary: Update one or many fields of a User by ID
  *      tags: [Users]
  *      security:
- *        - BearerAuth: []
+ *        - bearerAuth: []
  *      parameters:
  *        - in: path
  *          name: id
@@ -159,13 +159,14 @@ router.post("/", auth.isAdmin, createUser);
  *              type: integer
  *              required: true
  *              example: 1
- *        - in: body
- *          name: property
- *          description: property you want to update with its new value
- *          schema:
- *              type: string
- *              required: true
- *              example: '{"name": "Anna"}'
+ *      requestBody:
+ *          description: Property you want to update with its new value
+ *          required: true
+ *          content:
+ *            application/json:
+ *              schema:
+ *                type: object
+ *                example: '{"name": "Anna"}'
  *      responses:
  *        200:
  *          description: The user has been succesfully updated.
@@ -181,7 +182,7 @@ router.patch("/:id", auth.isAdmin, updateUser);
  *      summary: Delete user by ID
  *      tags: [Users]
  *      security:
- *        - BearerAuth: []
+ *        - bearerAuth: []
  *      parameters:
  *        - in: path
  *          name: id
