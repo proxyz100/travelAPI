@@ -14,20 +14,22 @@ async function getCategory(req, res) {
 }
 
 async function getCategories(req, res) {
-    const categories = await Category.findAll();
+    const limit = req.query.limit;
+    const allCategories = await Category.findAll();
+    const categories = allCategories.slice(0, limit ?? allCategories.length);
     res.status(200).json(categories);
 }
 async function updateCategory(req, res) {
     const id = req.params.id;
     const category = req.body;
-    await Category.update(category, { where: {id}});
+    await Category.update(category, { where: { id } });
     const category_updated = await Category.findByPk(id);
     res.status(200).json(category_updated);
 }
 async function deleteCategory(req, res) {
     const id = req.params.id;
     const deleted = Category.destroy(
-        { where: {id} }
+        { where: { id } }
     );
     res.status(200).json(deleted);
 }

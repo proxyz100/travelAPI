@@ -8,10 +8,8 @@ async function getFavorites(req, res) {
 
   const favorites = favoritesResult.slice(0, limit ?? favoritesResult.length)
     .map(favorite => {
-      const userUrl = `http://localhost:4000/users/${favorite.User.id}`;
       const destinationUrl = `http://localhost:4000/destinations/${favorite.Destination.id}`;
       const favoriteCopy = { ...favorite.dataValues }
-      favoriteCopy.User = userUrl;
       favoriteCopy.Destination = destinationUrl;
       return favoriteCopy;
     });

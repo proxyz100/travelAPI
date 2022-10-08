@@ -14,7 +14,9 @@ async function getDestination(req, res) {
 }
 
 async function getDestinations(req, res) {
-    const destinations = await Destination.findAll();
+    const limit = req.query.limit;
+    const allDestinations = await Destination.findAll();
+    const destinations = allDestinations.slice(0, limit ?? allDestinations.length);
     res.status(200).json(destinations);
 }
 
