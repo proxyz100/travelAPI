@@ -36,7 +36,7 @@ const auth = {
   isAdmin: async (req, res, next) => {
     if (!req.auth) return res.sendStatus(401);
     const typeUserName = await getTypeUser(req.auth.user);
-    if (typeUserName !== 'Admin') return res.sendStatus(403); //just the admin (forbidden)
+    if (typeUserName.toLowerCase() !== 'admin') return res.sendStatus(403); //just the admin (forbidden)
     next();
   },
 
@@ -44,7 +44,7 @@ const auth = {
   isPremium: async (req, res, next) => {
     if (!req.auth) return res.sendStatus(401);
     const typeUserName = await getTypeUser(req.auth.user);
-    if (typeUserName !== 'Premium' && typeUserName !== 'Admin') return res.sendStatus(403); //just the admin (forbidden)
+    if (typeUserName.toLowerCase() !== 'premium' && typeUserName.toLowerCase() !== 'admin') return res.sendStatus(403); //just the admin (forbidden)
     next();
   },
 }
