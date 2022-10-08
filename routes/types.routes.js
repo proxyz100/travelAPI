@@ -57,14 +57,14 @@ router.get('/', auth.isAdmin, getTypes);
  *      post:
  *          summary: Create a new Type
  *          tags: [Types]
- *          parameters:
- *              -   in: body
- *                  name: name
- *                  description: Name of new Type
- *                  schema:
- *                      type: string
- *                      required: true
- *                      example: '{"name": "Basic"}'
+ *          requestBody:
+ *              description: Name of new Type
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          type: object
+ *                          example: '{"name": "Basic"}'
  *          responses:
  *              201:
  *                  description: New Type has been created

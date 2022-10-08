@@ -9,7 +9,7 @@ async function getTypes(req, res) {
 async function createType(req, res) {
   const body = req.body;
   const numsTypes = (await Type.findAll()).length;
-  if (numsTypes >= 3) return res.status(401).json({ error: "No authorized" });
+  if (numsTypes >= 3) return res.status(400).json({ error: "You cannot have more than three types (Max. 3 types)" });
   const type = await Type.create(body);
   res.status(201).json(type);
 }
