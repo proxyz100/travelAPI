@@ -11,8 +11,34 @@ const {
     deleteUser }
     = require('../controllers/users.controller')
 
+/**
+ * @swagger
+ *  tags:
+ *    name: Users
+ *    description: Endpoints for Users
+ */
+
+/**
+ * @swagger 
+ * /users/:
+ *  get:
+ *      summary: All users
+ *      tags: [Users]
+ *      description: Get a list of all users.
+ *      produces: 
+ *          - application/json
+ *      responses:
+ *       200:
+ *         description: the list of all users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ */
 router.post('/signUp', signUp);
+
 router.post('/logIn', logIn);
+
 router.get('/', [passport.authenticate('bearer', { session: false, assignProperty: 'user' }), auth.isAdmin], getUsers);
 router.get('/:id', auth.isAdmin, getUser);
 router.post('/', auth.isAdmin, createUser);
