@@ -23,4 +23,4 @@ passport.use(new BearerStrategy((token, done) => {
 module.exports = passport;
 
 
-// Con bearter  => De esa manera ya pudieramoos validar getGods? ya que no ocupamos body
+
