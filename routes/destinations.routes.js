@@ -11,21 +11,22 @@
  *          - image
  *          - CategoryID
  *      properties:
- *       name:
+ *        name:
  *          type: string
- *       description:
+ *        description:
  *          type: string
- *       cost:
- *          type: number
- *       image:
- *          type: string
- *       CategoryId:
+ *        cost:
  *          type: integer
- *       example:
- *          "name": "Cancún"
- *          "description": "Beautiful beach"
- *          "cost": 1,116
- *          "image": "https://image.urlexample.com"
+ *        image:
+ *          type: string
+ *        CategoryId:
+ *          type: integer
+ *      example:
+ *        "name": "Cancún"
+ *        "description": "Beautiful beach"
+ *        "cost": 1116
+ *        "image": "https://image.urlexample.com"
+ *        "CategoryId": 1
  * */
 
 const router = require("express").Router();
@@ -52,16 +53,14 @@ const {
  *      summary: Create a new destination
  *      tags: [Destinations]
  *      security:
- *        - BearerAuth: []
+ *        - bearerAuth: []
  *      requestBody:
- *          name: Destination
- *          description: Brief place description
- *          cost: Approximate cost per solo travel
- *          image: Sample destination image
- *          schema:
- *              type: string
- *              required: true
- *              example:
+ *          description: user object
+ *          required: true
+ *          content:
+ *            application/json:
+ *              schema:
+ *                $ref: '#/components/schemas/Destination'
  *      responses:
  *        201:
  *          description: New destination added
@@ -77,15 +76,6 @@ router.post("/", auth.isAdmin, createDestination);
  *    get:
  *      summary: Get all destinations
  *      tags: [Destinations]
- *      requestBody:
- *          name: Destination
- *          description: Brief place description
- *          cost: Approximate cost per solo travel
- *          image: Sample destination image
- *          schema:
- *              type: string
- *              required: true
- *              example:
  *      responses:
  *        200:
  *          description: Ok. List of destinations
@@ -106,17 +96,9 @@ router.get("/:id", getDestination);
  *          name: id
  *          description: Unique id of the destination
  *          schema:
- *              type: string
+ *              type: integer
  *              required: true
  *              example: 1
- *      requestBody: 
- *          description: Brief place description
- *          cost: Approximate cost per solo travel
- *          image: Sample destination image
- *          schema:
- *              type: string
- *              required: true
- *              example:
  *      responses:
  *        200:
  *          description: Ok. Destination with the indicated ID
@@ -134,24 +116,24 @@ router.get("/", getDestinations);
  *      summary: Update one or more fields of a Destination by ID
  *      tags: [Destinations]
  *      security:
- *        - BearerAuth: []
+ *        - bearerAuth: []
  *      parameters:
  *        - in: path
  *          name: id
  *          description: Unique id of the destination
  *          schema:
- *              type: string
+ *              type: integer
  *              required: true
  *              example: 1
- *       requestBody
+ *      requestBody:
  *          description: Property you want to update with its new value
  *          required: true
  *          content:
  *            application/json:
  *              schema:
  *                type: object
- *                example: '{"cost": "3000"}'
- *       responses:
+ *                example: '{"cost": 1300}'
+ *      responses:
  *        200:
  *          description: Destination updated
  *        401:
@@ -166,7 +148,7 @@ router.patch("/:id", auth.isAdmin, updateDestination);
  *      summary: Delete destination by ID
  *      tags: [Destinations]
  *      security:
- *        - BearerAuth: []
+ *        - bearerAuth: []
  *      parameters:
  *        - in: path
  *          name: id
