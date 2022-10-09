@@ -28,9 +28,10 @@ async function updateCategory(req, res) {
 }
 async function deleteCategory(req, res) {
     const id = req.params.id;
-    const deleted = Category.destroy(
+    const deleted = await Category.destroy(
         { where: { id } }
     );
+    console.log(deleted);
     res.status(200).json(deleted);
 }
 

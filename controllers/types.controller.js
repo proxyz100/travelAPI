@@ -24,7 +24,7 @@ async function updateType(req, res) {
 
 async function deleteType(req, res) {
   const id = req.params.id;
-  const deleted = Type.destroy({ where: { id } });
+  const deleted = await Type.destroy({ where: { id } });
   res.status(200).json(deleted);
 }
 

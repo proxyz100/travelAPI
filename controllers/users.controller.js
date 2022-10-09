@@ -97,7 +97,7 @@ async function updateUser(req, res) {
 
 async function deleteUser(req, res) {
   const id = req.params.id;
-  const deleted = User.destroy({ where: { id } });
+  const deleted = await User.destroy({ where: { id } });
   res.status(200).json(deleted);
 }
 

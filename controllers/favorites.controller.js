@@ -39,7 +39,7 @@ async function getFavoritesOfUserByDestination(req, res) {
 
 async function deleteFavorite(req, res) {
   const id = req.params.id;
-  const favoriteDeleted = Favorite.destroy({ where: { id } });
+  const favoriteDeleted = await Favorite.destroy({ where: { id } });
   res.status(200).json(favoriteDeleted);
 }
 
