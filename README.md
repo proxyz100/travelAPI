@@ -74,6 +74,7 @@ Make sure you have Nodejs and NPM installed in your local device.
 4. Open the folder and create a **.env** file. Add the data with the .env-example variables.
 5. Run the app `npm run dev`
 
+> Check this [tutorial](https://youtu.be/Ig7jgejgQKI) tu run the app!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
@@ -112,6 +113,7 @@ We have five entities with the following properties and methods
 
 
 ⚠️  **Considerations**
+- You can only have a maximium of 3 Types of user.
 - Before you create a new Destination, you have to create the Category you'll add to it.
 - You need to get a valid token to access some methods, if not you'll get an _401 Unauthorized_ error
 
