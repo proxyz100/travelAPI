@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const secret = require("../config/secret");
 
+
 const User = sequelize.define("User", {
   name: {
     type: DataTypes.STRING(64),
@@ -34,6 +35,8 @@ const User = sequelize.define("User", {
   },
 });
 
+
+
 User.createPassword = function (plainText) {
   const salt = crypto.randomBytes(16).toString("hex");
   const hash = crypto
@@ -57,6 +60,7 @@ User.generateJWT = function (user) {
 
   return jwt.sign({
     user: user.TypeId,
+    email: user.email,
     exp: parseInt(exp.getTime() / 1000)
   }, secret);
 }

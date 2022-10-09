@@ -1,31 +1,52 @@
 const User = require("../models/users.model");
+const Type = require('../models/types.model');
 
-// TO DO: Implement authorization
+async function getTypeId(nameType) {
+  const typeUser = await Type.findOne({ where: { name: nameType } });
+  return typeUser.id;
+}
+
+// SignUp function
 async function signUp(req, res) {
   const body = req.body;
 
   try {
+    // Validate the type of user admin
+    const idAdmin = await getTypeId('Admin');
+    if (body.TypeId === idAdmin) throw new Error('UserType Error');
+
+
+    // Create the user
     const user = await User.create(body);
     const { salt, hash } = User.createPassword(body["password"]);
     user.password_salt = salt;
     user.password_hash = hash;
+
+    // Validate the type user null
+    if (!user.TypeId) {
+      const idTypeUserBasic = await getTypeId('Basic');
+      user.TypeId = idTypeUserBasic;
+    }
+
     await user.save();
     res.status(201).json(user);
   } catch (err) {
-    if (
-      ["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(
-        err.name
-      )
-    ) {
+    console.log(err.name);
+    if (["SequelizeValidationError", "SequelizeUniqueConstraintError"].includes(err.name)) {
       return res.status(400).json({
         error: err.errors.map((e) => e.message),
       });
-    } else {
+    }
+    else if (err.message === 'UserType Error') {
+      return res.status(400).json({ err: err.message });
+    }
+    else {
       throw err;
     }
   }
 }
 
+// Login function
 async function logIn(req, res) {
   const body = req.body;
   const user = await User.findOne({ where: { email: body["email"] } });
@@ -76,7 +97,7 @@ async function updateUser(req, res) {
 
 async function deleteUser(req, res) {
   const id = req.params.id;
-  const deleted = User.destroy({ where: { id } });
+  const deleted = await User.destroy({ where: { id } });
   res.status(200).json(deleted);
 }
 

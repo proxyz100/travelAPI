@@ -8,6 +8,8 @@ async function getTypes(req, res) {
 
 async function createType(req, res) {
   const body = req.body;
+  const numsTypes = (await Type.findAll()).length;
+  if (numsTypes >= 3) return res.status(400).json({ error: "You cannot have more than three types (Max. 3 types)" });
   const type = await Type.create(body);
   res.status(201).json(type);
 }
@@ -22,7 +24,7 @@ async function updateType(req, res) {
 
 async function deleteType(req, res) {
   const id = req.params.id;
-  const deleted = Type.destroy({ where: { id } });
+  const deleted = await Type.destroy({ where: { id } });
   res.status(200).json(deleted);
 }
 

@@ -1,5 +1,6 @@
 const secret = require('./secret.js');
 const { expressjwt } = require('express-jwt');
+const Type = require('../models/types.model');
 
 // Function to get the JWT from the HTTP Header
 function getTokenFromHeader(req) {
@@ -7,6 +8,11 @@ function getTokenFromHeader(req) {
   if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer')
     return req.headers.authorization.split(' ')[1];
 
+}
+
+async function getTypeUser(id) {
+  const { name: typeUser } = await Type.findByPk(id);
+  return typeUser;
 }
 
 // middlewares
@@ -27,17 +33,18 @@ const auth = {
   },
 
   // middleware for admin
-  isAdmin: (req, res, next) => {
+  isAdmin: async (req, res, next) => {
     if (!req.auth) return res.sendStatus(401);
-    if (req.auth.user !== 1) return res.sendStatus(403); //just the admin (forbidden)
+    const typeUserName = await getTypeUser(req.auth.user);
+    if (typeUserName.toLowerCase() !== 'admin') return res.sendStatus(403); //just the admin (forbidden)
     next();
   },
 
   // middleware for premium
-  isPremium: (req, res, next) => {
+  isPremium: async (req, res, next) => {
     if (!req.auth) return res.sendStatus(401);
-    console.log(req.auth);
-    if (req.auth.user !== 2 && req.auth.user !== 1) return res.sendStatus(403); //just the admin (forbidden)
+    const typeUserName = await getTypeUser(req.auth.user);
+    if (typeUserName.toLowerCase() !== 'premium' && typeUserName.toLowerCase() !== 'admin') return res.sendStatus(403); //just the admin (forbidden)
     next();
   },
 }
