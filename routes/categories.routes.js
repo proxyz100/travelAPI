@@ -3,20 +3,20 @@
  * components:
  *  schemas:  
  *   Category:
- *      Type: object
+ *      type: object
  *      required:
  *          - lanscape
  *          - icon
  *          - description
  *      properties:
- *       id:
- *          type:integer
- *      landscape:
- *         type: text
- *      icon:
- *          type: text
- *      description:
- *          type: text
+ *          id:
+ *              type: integer
+ *          landscape:
+ *              type: string
+ *          icon:
+ *              type: string
+ *          description:
+ *              type: string
  *      example:  
  *          "landscape": "island"
  *          "icon": "https://www.flaticon.es/icono-gratis/isla_3094941?term=island&page=1&position=28&page=1&position=28&related_id=3094941&origin=search"
@@ -52,7 +52,7 @@ const Category = require('../models/categories.model');
 *       200:
 *         description: A list of all registered categories
 *         schema:
-*          $ref: '#/components/Category'
+*          $ref: '#/components/schemas/Category'
 * */
 
 router.get('/', getCategories);
@@ -133,7 +133,7 @@ router.post('/', auth.isAdmin, createCategory);
 *              201:
 *                  description: Type a new name
 *                  schema:
-*                      $ref: '#/components/Category'
+*                      $ref: '#/components/schemas/Category'
 *              401:
 *                  description: Unauthorized - the user is not admin             
 */
