@@ -7,8 +7,6 @@ const options = {
           type: "http",
           scheme: "bearer",
           bearerFormat: "JWT",
-          value: "Bearer <JWT token here>",
-          in: "header"
         },
       },
     },

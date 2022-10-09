@@ -100,7 +100,7 @@ router.post('/', createType);
  *                  application/json:
  *                      schema:
  *                          type: object
- *                          example: '{"name": "Admini"}'
+ *                          example: '{"name": "Admin"}'
  *          responses:
  *              201:
  *                  description: Type with new name
