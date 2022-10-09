@@ -13,7 +13,10 @@ async function signUp(req, res) {
   try {
     // Validate the type of user admin
     const idAdmin = await getTypeId('Admin');
-    if (body.TypeId === idAdmin) throw new Error('UserType Error');
+    const userAdmin = await User.findOne({ where: { TypeId: idAdmin } });
+    if (userAdmin) throw new Error('UserType Error');
+
+    // if (body.TypeId === idAdmin) throw new Error('UserType Error');
 
 
     // Create the user
