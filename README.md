@@ -71,7 +71,8 @@ Make sure you have Nodejs and NPM installed in your local device.
 1. Clone the repo `git clone https://github.com/proxyz100/travelAPI`
 2. Move to directory `cd travelAPI`
 3. Install npm packages `npm i`
-4. Run the app `npm run dev`
+4. Open the folder and create a **.env** file. Add the data with the .env-example variables.
+5. Run the app `npm run dev`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
