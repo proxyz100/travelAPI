@@ -4,11 +4,11 @@ const Destination = require('../models/destinations.model')
 
 async function getFavorites(req, res) {
   const limit = req.query.limit;
-  const favoritesResult = await Favorite.findAll({ include: [User, Destination] }); // maybe change this statement and use include
+  const favoritesResult = await Favorite.findAll({ include: Destination }); // maybe change this statement and use include
 
   const favorites = favoritesResult.slice(0, limit ?? favoritesResult.length)
     .map(favorite => {
-      const destinationUrl = `http://localhost:4000/destinations/${favorite.Destination.id}`;
+      const destinationUrl = `${process.env['BASE_URL']}/destinations/${favorite.Destination.id}`;
       const favoriteCopy = { ...favorite.dataValues }
       favoriteCopy.Destination = destinationUrl;
       return favoriteCopy;

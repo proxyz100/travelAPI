@@ -124,8 +124,10 @@ router.get('/destinations/:id', auth.isPremium, getFavoritesOfUserByDestination)
  * @swagger
  *  /favorites/:
  *    post:
- *      summary: Craete a favorite
+ *      summary: Create a favorite
  *      tags: [Favorites]
+ *      security:
+ *        - bearerAuth: []
  *      requestBody:
  *          description: favorite object
  *          required: true
