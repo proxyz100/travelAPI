@@ -27,7 +27,7 @@ try {
     console.log('Unable to connect to DB: ', error);
 }
 
-const PORT = 4000;
-app.listen(PORT, () => {
-    console.log("listening on port " + PORT);
+
+app.listen(process.env['PORT'] || 4000, () => {
+    console.log("listening on port " + process.env['PORT']);
 });
