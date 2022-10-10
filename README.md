@@ -32,7 +32,7 @@
        <ul>
           <li><a href="#models">Models</a></li>
           <li><a href="#basic-flow">Basic flow</a></li>
-	  <li><a href="#basic-flow">Testing</a></li>
+	  <li><a href="#testing">Testing</a></li>
        </ul>
     </li>
     <li><a href="#resources">Resources</a></li>
