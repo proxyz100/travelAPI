@@ -32,9 +32,10 @@
        <ul>
           <li><a href="#models">Models</a></li>
           <li><a href="#basic-flow">Basic flow</a></li>
-          <li><a href="#resources">Resources</a></li>
+	  <li><a href="#basic-flow">Testing</a></li>
        </ul>
     </li>
+    <li><a href="#resources">Resources</a></li>
   </ol>
 </details>
 
@@ -88,6 +89,8 @@ We have five entities with the following properties and methods
 
 > There's only three types of users: Admin (access to all methods), Premium (access to favorites methods) and Basic.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 ### Basic flow
 1. First you have to sign up
 ```
@@ -113,13 +116,49 @@ We have five entities with the following properties and methods
 
 
 ⚠️  **Considerations**
-- You can only have a maximium of 3 Types of user.
+- You can only have a maximium of 3 Types of user. There's only 1-Admin, 2-Premium, 3-Basic.
 - Before you create a new Destination, you have to create the Category you'll add to it.
 - You need to get a valid token to access some methods, if not you'll get an _401 Unauthorized_ error
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+### Testing
 _For more examples, check the [Documentation](https://travelapi-production.up.railway.app/docs/) and [Insomia Tests](https://drive.google.com/drive/folders/15LJ8IVtF68ONnJ0krMJ2elo4sYEC0Q3U?usp=sharing)._
 
-### Resources
+There's already some users and types in the database you can test with the API. But you can still create new users (with the defined types).
+
+**Types**
+|id|name|
+|----|----|
+|1|Admin|
+|2|Premium|
+|3|Basic|
+
+
+
+**Users**
+
+|email|password|typeId|
+|----|----|----|
+|marcon@hotmail.com|SVNJn994M$|1|
+|frasol@hotmail.com|57PEGdR#9@|2|
+|almlov@hotmail.com|xxY*8tq39A|2|
+|marmel@hotmail.com|y7z2Vj7%TG|2|
+|serurb@hotmail.com|veZq7$82!!|2|
+|petfra@hotmail.com|*qQ4!38T2Q|2|
+|hecsif@hotmail.com|3Bs4k!3HEy|2|
+|carsan@hotmail.com|kx*T86X2A2|2|
+|margue@hotmail.com|nM99K7$e6%|3|
+|jazrey@hotmail.com|92#jSB35p%|3|
+|leogal@hotmail.com|!9FFv3y89j|3|
+|luzqui@hotmail.com|gRR6$H74Qe|3|
+|sebher@hotmail.com|66%CDRgce6|3|
+|frigut@hotmail.com|4#GJp$84Xx|3|
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Resources
 - Tracking: [Trello](https://trello.com/b/RmM26nwg/travel-around-the-globe-api-%F0%9F%8C%8E)
 - Database: models and relations
 <img src="https://user-images.githubusercontent.com/57516503/194740799-653f2261-d190-4404-8b5b-134f45e0e6ac.jpg" alt="diagrams" width="400"/>
