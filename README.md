@@ -74,6 +74,7 @@ Make sure you have Nodejs and NPM installed in your local device.
 4. Open the folder and create a **.env** file. Add the data with the .env-example variables.
 5. Run the app `npm run dev`
 
+> Check this [tutorial](https://youtu.be/6jLiPRCX_GE) to run the app!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Usage
