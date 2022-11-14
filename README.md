@@ -4,7 +4,7 @@
   <p align="center">
     An awesome <b>Travel API</b> with many destinations, categories, users and more to use in your next project!
     <br />
-    <a href="https://travelapi-production.up.railway.app/docs/"><strong>Explore the docs »</strong></a>
+    <a href="https://soundwave-production-1ee2.up.railway.app/"><strong>Explore the docs »</strong></a>
   </p>
 </div>
 
